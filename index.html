@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple To-Do List</title>
+  <style>
+    /* Basic Reset and Styling */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f8;
+      padding: 40px;
+    }
+
+    .todo-container {
+      max-width: 400px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .input-section {
+      display: flex;
+      margin-bottom: 20px;
+    }
+
+    #todo-input {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      border: 2px solid #ccc;
+      border-radius: 5px 0 0 5px;
+    }
+
+    #add-btn {
+      padding: 10px 15px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    #add-btn:hover {
+      background-color: #218838;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    li {
+      background: #f8f9fa;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-left: 5px solid #28a745;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 5px;
+    }
+
+    .delete-btn {
+      background: red;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .delete-btn:hover {
+      background: darkred;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="todo-container">
+    <h2>📝 My To-Do List</h2>
+
+    <!-- Input section to add new tasks -->
+    <div class="input-section">
+      <input type="text" id="todo-input" placeholder="Enter a new task...">
+      <button id="add-btn">Add</button>
+    </div>
+
+    <!-- List container -->
+    <ul id="todo-list">
+      <!-- Tasks will appear here -->
+    </ul>
+  </div>
+
+  <script>
+    // Get references to elements
+    const addBtn = document.getElementById('add-btn');
+    const inputField = document.getElementById('todo-input');
+    const todoList = document.getElementById('todo-list');
+
+    // Function to add a new task
+    function addTask() {
+      const taskText = inputField.value.trim(); // Remove extra spaces
+
+      if (taskText === '') {
+        alert("Please enter a task.");
+        return;
+      }
+
+      // Create new list item (li)
+      const li = document.createElement('li');
+      li.textContent = taskText;
+
+      // Create delete button for the task
+      const deleteBtn = document.createElement('button');
+      deleteBtn.textContent = 'Delete';
+      deleteBtn.className = 'delete-btn';
+
+      // Add delete functionality
+      deleteBtn.onclick = () => {
+        todoList.removeChild(li);
+      };
+
+      // Add the button to the list item
+      li.appendChild(deleteBtn);
+
+      // Add the new task to the list
+      todoList.appendChild(li);
+
+      // Clear the input
+      inputField.value = '';
+    }
+
+    // Add task when the Add button is clicked
+    addBtn.addEventListener('click', addTask);
+
+    // Add task when Enter key is pressed
+    inputField.addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') {
+        addTask();
+      }
+    });
+  </script>
+
+</body>
+</html>
